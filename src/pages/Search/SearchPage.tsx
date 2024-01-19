@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { reaction, when } from "mobx";
 import { createMarkup } from "../../components/utils";
 
+type SearchPageProps = {
+  search?: (query: string) => string; // Define the type according to what the function actually returns
+};
+
 // Wrap your page component in a motion.div with your desired animation props
 const pageTransition = {
   in: {
@@ -20,13 +24,13 @@ const pageTransition = {
   },
 };
 
-const SearchPage: React.FC = observer(() => {
+const SearchPage: React.FC<SearchPageProps> = observer(({ search }) => {
   const { nasaStore } = useContext(StoreContext);
   const [data, setData] = useState<NASASearchResult[] | undefined>([]);
   const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(window.location.search);
-  const defaultQuery = queryParams.get("q") || "";
+  const defaultQuery = (search || queryParams.get("q") || "") as string;
   const defaultYearStart = queryParams.get("year_start") || "";
   const defaultYearEnd = queryParams.get("year_end") || "";
 
