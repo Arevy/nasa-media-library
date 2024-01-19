@@ -1,11 +1,10 @@
 import { action, observable, runInAction } from "mobx";
-import { ItemDetails, NASASearchResult } from "../interfaces/SearchResult";
+import { NASASearchResult } from "../interfaces/SearchResult";
 import { RootStore } from "./RootStore";
 
 export class NASAStore {
   rootStore: RootStore;
   @observable searchResults: NASASearchResult[] = [];
-  details: ItemDetails | null = null;
   @observable isLoading: boolean = false;
   @observable detailedItem: NASASearchResult | null = null;
   @observable isDetailReady: boolean = false;
@@ -27,55 +26,30 @@ export class NASAStore {
   async search(query: string, yearStart?: string, yearEnd?: string) {
     try {
       // Construct the URL with additional parameters
-      let url = `https://images-api.nasa.gov/search?q=${query}`;
+      let url = `https://images-api.nasa.gov/search?q=${query}&media_type=image`; // here I used &media_type=image to force it, but we can handdle video/audio too
 
-      console.log(
-        "BEFORE !!yearStart",
-        !!yearStart,
-        "!!yearEnd",
-        !!yearEnd,
-        "query",
-        query
-      );
-      if (!!yearStart) url += `&year_start=${yearStart}`;
-      if (!!yearEnd) url += `&year_end=${yearEnd}`;
-      console.log(
-        "after !!yearStart",
-        !!yearStart,
-        "!!yearEnd",
-        !!yearEnd,
-        "query",
-        query,
-        "url",
-        url
-      );
+      if (!!yearStart?.length) {
+        url += `&year_start=${yearStart}`;
+      }
+      if (!!yearEnd?.length) {
+        url += `&year_end=${yearEnd}`;
+      }
 
       this.setIsLoading(true);
       const response = await fetch(url);
       const data = await response.json();
-      console.log("1", data.collection.items.lenght, this.isLoading, query);
-      this.searchResults = data.collection.items;
+      // this.searchResults = data.collection.items;
 
       runInAction(() => {
         // this.setSearchResults(data.collection.items);
-        this.searchResults = data.collection.items;
-        this.setIsLoading(false);
-        console.log("Search Results Set:", this.searchResults);
-        console.log(
-          "2",
-          data.collection.items.lenght,
-          this.searchResults.length,
-          this.isLoading,
-          query
+        // extral filter
+        this.searchResults = data.collection.items.filter(
+          (item: { data: { media_type: string; }[]; }) => item.data[0].media_type === "image"
         );
+
+        this.setIsLoading(false);
       });
-      console.log(
-        "3",
-        data.collection.items.lenght,
-        this.searchResults.length,
-        this.isLoading,
-        query
-      );
+
       return this.searchResults;
     } catch (error) {
       console.error("Failed to fetch data:", error);

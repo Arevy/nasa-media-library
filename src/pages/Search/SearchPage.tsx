@@ -37,10 +37,11 @@ const SearchPage: React.FC = observer(() => {
       yearEnd: defaultYearEnd,
     },
   });
+
   const handleSearch = handleSubmit(async (data) => {
     try {
       await nasaStore
-        .search(data.query.trim(), data.yearStart, data.yearEnd)
+        .search(data.query.trim(), data.yearStart.trim(), data.yearEnd.trim())
         .then((items) => setData(items));
       // Set the values back to the form fields after submission
       setValue("query", data.query);
@@ -49,11 +50,14 @@ const SearchPage: React.FC = observer(() => {
       nasaStore.setLastSearchResults(nasaStore.searchResults);
     } catch (e) {
     } finally {
-      navigate(
-        `/?q=${encodeURIComponent(data.query.trim())}&year_start=${
-          data.yearStart
-        }&year_end=${data.yearEnd}`
-      );
+      let url = `/?q=${encodeURIComponent(data.query.trim())}`;
+      if (!!data.yearStart?.length) {
+        url += `&year_start=${data.yearStart}`;
+      }
+      if (!!data.yearEnd?.length) {
+        url += `&year_end=${data.yearEnd}`;
+      }
+      navigate(url);
     }
   });
 
