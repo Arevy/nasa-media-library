@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
-import DetailPage from "../pages/Detail/DetailPage";
+import SearchPage from "./SearchPage";
 import { MemoryRouter } from "react-router-dom";
 describe("SearchPage Tests", () => {
   const mockSearch = jest.fn();
@@ -11,18 +11,20 @@ describe("SearchPage Tests", () => {
 
   it("should perform a search and display results", async () => {
     mockSearch.mockResolvedValue([
+      // Mock search results
     ]);
 
     render(
       <MemoryRouter>
-        <DetailPage fetchDetailData={mockSearch} />
+        <SearchPage search={mockSearch} />
       </MemoryRouter>
     );
   });
-  test("DetailPage renders correctly", () => {
+
+  test("SearchPage renders correctly", () => {
     render(
       <MemoryRouter>
-        <DetailPage fetchDetailData={mockSearch} />
+        <SearchPage search={mockSearch} />
       </MemoryRouter>
     );
   });
