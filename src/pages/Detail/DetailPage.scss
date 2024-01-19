@@ -1,56 +1,78 @@
 .detail-page {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin: auto;
+  max-width: 800px; // or your preferred width
 
   .back-button {
-    background: #005288;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #005288;
     color: white;
-    padding: 10px 20px;
+    border: none;
+    border-radius: 0.3rem;
     text-decoration: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: inline-block;
+    cursor: pointer;
     &:hover {
-      background: darken(#005288, 10%);
+      background-color: darken(#005288, 10%);
     }
   }
 
   .item-detail {
-    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
 
     img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
-      margin-bottom: 20px;
+      object-fit: cover;
     }
 
-    .title {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
+    .content {
+      padding: 1rem;
+      background: white;
 
-    .location,
-    .photographer,
-    .date {
-      font-size: 1em;
-      margin-bottom: 5px;
-    }
+      .title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
 
-    .description {
-      margin-bottom: 10px;
-    }
+      .metadata {
+        display: flex;
+        flex-direction: column;
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 1rem;
 
-    .keywords {
-      margin-top: 10px;
-      span {
-        display: inline-block;
-        background: #eee;
-        padding: 5px 10px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        border-radius: 5px;
-        font-size: 0.8em;
+        .date {
+          margin-bottom: 0.25rem;
+        }
+      }
+
+      .description {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .keywords {
+        padding: 0.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        span {
+          background-color: #eef;
+          border-radius: 0.3rem;
+          padding: 0.3rem 0.5rem;
+          font-size: 0.85rem;
+        }
       }
     }
   }
@@ -58,9 +80,12 @@
 
 @media (max-width: 768px) {
   .detail-page {
+    padding: 1rem;
     .item-detail {
-      .title {
-        font-size: 1.5em;
+      .content {
+        .title {
+          font-size: 1.2rem;
+        }
       }
     }
   }

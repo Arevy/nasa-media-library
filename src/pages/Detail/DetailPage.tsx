@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { StoreContext } from "../../stores/StoreContext";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import "./DetailPage.scss"; // Import your SCSS file here
+import { NASASearchResult } from "../../interfaces/SearchResult";
 import { createMarkup } from "../../components/utils";
 
 const pageTransition = {
@@ -17,31 +19,32 @@ const pageTransition = {
 const DetailPage: React.FC = observer(() => {
   const { nasaStore } = useContext(StoreContext);
 
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  const { detailedItem } = useMemo(() => nasaStore, [id]);
-  useEffect(() => {
-    id && nasaStore.fetchDetails(id);
-  }, [id, nasaStore]);
-
-  // useEffect(() => {
-  //   // Check if the details are already available, if not fetch them
-  //   if (
-  //     id &&
-  //     (!nasaStore.detailedItem || nasaStore.detailedItem.data[0].nasa_id !== id)
-  //   ) {
-  //     nasaStore.fetchDetails(id).catch(console.error);
-  //   }
-  // }, [id, nasaStore, detailedItem]);
+  const [detailedItem, setDetailedItem] = useState<NASASearchResult | null>(
+    null
+  );
 
   useEffect(() => {
-    // Check if the details are already in the store
-    const existingDetail = nasaStore.detailedItem;
-    if (id && (!existingDetail || existingDetail.data[0].nasa_id !== id)) {
-      // Data is not in the store, fetch it
-      nasaStore.fetchDetails(id).catch(console.error);
-    }
+    const fetchData = async () => {
+      if (id) {
+        await nasaStore.fetchDetails(id);
+        setDetailedItem(nasaStore.detailedItem);
+      }
+    };
+
+    fetchData();
   }, [id, nasaStore]);
+
+  if (!detailedItem) {
+    return <div>Loading...</div>;
+  }
+
+  // Format date
+  const formattedDate = detailedItem.data[0]?.date_created
+    ? new Date(detailedItem.data[0].date_created).toLocaleDateString()
+    : "";
 
   return (
     <motion.div
@@ -51,22 +54,18 @@ const DetailPage: React.FC = observer(() => {
       variants={pageTransition}
       className="detail-page"
     >
-      <Link to="/" className="back-button">
+      <button onClick={() => navigate(-1)} className="back-button">
         Back to results
-      </Link>
+      </button>
       <div className="item-detail">
-        <h1 className="title">{detailedItem?.data[0].title}</h1>
+        <h1 className="title">{detailedItem.data[0].title}</h1>
         <img
-          src={detailedItem?.links[0].href}
-          alt={detailedItem?.data[0].title}
+          src={detailedItem.links[0].href}
+          alt={detailedItem.data[0].title}
         />
-        <p className="location">{detailedItem?.data[0].location}</p>
-        <p className="photographer">{detailedItem?.data[0].photographer}</p>
-        <p className="date">
-          {new Date(
-            detailedItem?.data[0]?.date_created as string
-          ).toLocaleDateString()}
-        </p>
+        <p className="location">{detailedItem.data[0].location}</p>
+        <p className="photographer">{detailedItem.data[0].photographer}</p>
+        <p className="date">{formattedDate}</p>
         <div
           className="item-description"
           dangerouslySetInnerHTML={createMarkup(
@@ -96,7 +95,6 @@ const DetailPage: React.FC = observer(() => {
             )}
           </div>
         )}
-        {/* Other details here */}
       </div>
     </motion.div>
   );
