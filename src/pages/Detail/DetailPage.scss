@@ -1,0 +1,67 @@
+.detail-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .back-button {
+    background: #005288;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: inline-block;
+    &:hover {
+      background: darken(#005288, 10%);
+    }
+  }
+
+  .item-detail {
+    margin-bottom: 20px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .location,
+    .photographer,
+    .date {
+      font-size: 1em;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      margin-bottom: 10px;
+    }
+
+    .keywords {
+      margin-top: 10px;
+      span {
+        display: inline-block;
+        background: #eee;
+        padding: 5px 10px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        font-size: 0.8em;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-page {
+    .item-detail {
+      .title {
+        font-size: 1.5em;
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+@mixin respond-to($media) {
+  @if $media == "phone" {
+    @media (max-width: 600px) {
+      @content;
+    }
+  }
+  @if $media == "tablet" {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+  @if $media == "desktop" {
+    @media (min-width: 901px) {
+      @content;
+    }
+  }
+}
+
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+
+  @include respond-to("phone") {
+    padding: 1rem;
+  }
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  @include respond-to("phone") {
+    margin: 1rem;
+  }
+}
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+}
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.search-button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #005288;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #003355;
+  }
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+
+  @include respond-to("phone") {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .result-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    height: 100%;
+    max-height: 20rem;
+    overflow: auto;
+
+    .result-image {
+      width: 100%;
+      height: auto;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .result-info {
+      padding: 15px;
+      background-color: white;
+
+      h2 {
+        font-size: 1rem;
+        margin: 0 0 10px 0;
+      }
+
+      .result-description {
+        font-size: 0.8rem;
+        color: #666;
+      }
+    }
+  }
+}
