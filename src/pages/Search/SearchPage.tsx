@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { reaction, when } from "mobx";
 import { createMarkup } from "../../components/utils";
 
+type SearchPageProps = {
+  search?: (query: string) => string; // Define the type according to what the function actually returns
+};
+
 // Wrap your page component in a motion.div with your desired animation props
 const pageTransition = {
   in: {
@@ -20,13 +24,13 @@ const pageTransition = {
   },
 };
 
-const SearchPage: React.FC = observer(() => {
+const SearchPage: React.FC<SearchPageProps> = observer(({ search }) => {
   const { nasaStore } = useContext(StoreContext);
   const [data, setData] = useState<NASASearchResult[] | undefined>([]);
   const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(window.location.search);
-  const defaultQuery = queryParams.get("q") || "";
+  const defaultQuery = (search || queryParams.get("q") || "") as string;
   const defaultYearStart = queryParams.get("year_start") || "";
   const defaultYearEnd = queryParams.get("year_end") || "";
 
@@ -37,10 +41,11 @@ const SearchPage: React.FC = observer(() => {
       yearEnd: defaultYearEnd,
     },
   });
+
   const handleSearch = handleSubmit(async (data) => {
     try {
       await nasaStore
-        .search(data.query.trim(), data.yearStart, data.yearEnd)
+        .search(data.query.trim(), data.yearStart.trim(), data.yearEnd.trim())
         .then((items) => setData(items));
       // Set the values back to the form fields after submission
       setValue("query", data.query);
@@ -49,11 +54,14 @@ const SearchPage: React.FC = observer(() => {
       nasaStore.setLastSearchResults(nasaStore.searchResults);
     } catch (e) {
     } finally {
-      navigate(
-        `/?q=${encodeURIComponent(data.query.trim())}&year_start=${
-          data.yearStart
-        }&year_end=${data.yearEnd}`
-      );
+      let url = `/?q=${encodeURIComponent(data.query.trim())}`;
+      if (!!data.yearStart?.length) {
+        url += `&year_start=${data.yearStart}`;
+      }
+      if (!!data.yearEnd?.length) {
+        url += `&year_end=${data.yearEnd}`;
+      }
+      navigate(url);
     }
   });
 

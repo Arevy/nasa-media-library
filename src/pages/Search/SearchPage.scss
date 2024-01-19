@@ -43,6 +43,11 @@
   display: flex;
   gap: 0.5rem;
   padding: 1rem;
+  flex-direction: row;
+
+  @include respond-to("phone") {
+    flex-direction: column;
+  }
 
   input {
     flex-grow: 1;
