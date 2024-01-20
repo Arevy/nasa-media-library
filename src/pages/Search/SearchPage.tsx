@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { reaction, when } from "mobx";
 import { createMarkup } from "../../components/utils";
+import Footer from "../../components/Footer/Footer";
 
 type SearchPageProps = {
   search?: (query: string) => string; // Define the type according to what the function actually returns
@@ -155,6 +156,7 @@ const SearchPage: React.FC<SearchPageProps> = observer(({ search }) => {
           )}
         </div>
       )}
+      <Footer />
     </motion.div>
   );
 });

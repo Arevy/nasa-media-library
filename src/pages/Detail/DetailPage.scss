@@ -1,4 +1,4 @@
-@import "../../styles/_main.scss";
+@import "../../styles/_main";
 
 .detail-page {
   display: flex;
@@ -8,6 +8,7 @@
   margin: auto;
   max-width: 85dvw;
   padding: 1rem;
+  background-color: $aliceblue;
 
   @include device-type(tablet) {
     padding: 2rem;

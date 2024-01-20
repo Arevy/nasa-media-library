@@ -1,4 +1,4 @@
-@import "../../styles/_main.scss";
+@import "../../styles/_main";
 
 .main-title {
   display: flex;
@@ -14,6 +14,7 @@
   justify-content: center;
   min-height: 100vh;
   padding: 1rem;
+  background-color: $aliceblue;
 
   @include device-type(tablet) {
     padding: 2rem;
