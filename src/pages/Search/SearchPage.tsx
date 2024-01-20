@@ -101,6 +101,7 @@ const SearchPage: React.FC<SearchPageProps> = observer(({ search }) => {
       variants={pageTransition}
       className="search-page"
     >
+      <div className="main-title">Nasa Media Library Search</div>
       <form className="search-form" onSubmit={handleSearch}>
         <input {...register("query")} type="text" placeholder="Search" />
         <input
@@ -111,6 +112,7 @@ const SearchPage: React.FC<SearchPageProps> = observer(({ search }) => {
         <input {...register("yearEnd")} type="text" placeholder="Year End" />
         <button type="submit">Search</button>
       </form>
+      {!!data?.length && <div>{`Total results ${data.length}`} </div>}
       {nasaStore.isLoading ? (
         <div>Loading...</div>
       ) : (

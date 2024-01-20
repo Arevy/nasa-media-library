@@ -1,0 +1,33 @@
+@mixin device-type($media) {
+  @if $media ==tablet {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @if $media == desktop {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+
+  @if $media == desktop-large {
+    @media (min-width: 1440‰px) {
+      @content;
+    }
+  }
+}
+
+$black: black;
+$black-shadow: rgba(0, 0, 0, 0.1);
+$blue: #005288;
+$blue-light: #003355;
+$blue-dark: #324d5f;
+$blue-dark-hover: darken(#005288, 10%);
+$grey: #666;
+$grey-light: #ccc;
+$grey-light-1: #ddd;
+$grey-dark: #333;
+$white: white;
+$white-eef: #eef;
+$midnight: #111;
