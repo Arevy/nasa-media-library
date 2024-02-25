@@ -1,59 +1,90 @@
 # Nasa Media Library Search
 
-An app that enables users to search NASA's media library and see detailed views.
+This **React-based application** enables users to explore and search NASA's extensive media library, offering detailed views of space imagery and information. It's designed to provide an intuitive user interface for accessing NASA's vast collection of space-related images and videos.
 
-Can be tested on netlify [CURRENT_URL_APP](https://rainbow-zuccutto-a3279e.netlify.app/)
+## Live Demo
 
-# stack:
+[Visit the app](https://rainbow-zuccutto-a3279e.netlify.app/)
 
-`React.js`
-`Typescript`
-`MobX`
-`Jest`
+## Technology Stack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **React.js**: A JavaScript library for building user interfaces.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **MobX**: A simple, scalable state management solution.
+- **SCSS**: A preprocessor scripting language that is interpreted or compiled into Cascading Style Sheets (CSS).
+- **Jest**: A delightful JavaScript Testing Framework with a focus on simplicity.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16.15.1 recommended)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Arevy/nasa-media-library.git
+2. Navigate to the project directory:
+   ```bash
+   cd nasa-media-library
+3. Install dependencies:
+   ```bash
+   npm install
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start`: Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `npm test`: Launches the test runner in the interactive watch mode.
+- `npm run build`: Builds the app for production to the `build` folder.
+- `npm run eject`: Removes the single build dependency from your project.
 
-### `npm start` use node v16.15.1
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Search Functionality**: Users can search through NASA's media library using specific criteria.
+- **Detailed Views**: Provides detailed information about space imagery and videos.
+- **Responsive Design**: Ensures a seamless experience across various devices and screen sizes.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Project Overview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application is a client-side React single-page application that allows users to search and view items from the NASA Media Library. It features a responsive design to ensure usability on mobile devices and includes basic tests for code reliability.
 
-### `npm run build`
+## Features and Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Search Page**: Enables users to search the NASA Media Library via the `/search` endpoint, including filters for year start and year end. It includes input validations according to the API specification, a search button, and displays results with thumbnails, titles, location, and photographer's name, linking to detailed views.
+- **Show Page**: Displays detailed information about a specific item from the search results, including title, location, photographer's name, description, keywords, date, and images from the collection. A back button is provided to return to the search results.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To utilize this application:
 
-### `npm run eject`
+1. Navigate to the search page to start exploring the NASA Media Library.
+2. Enter your search criteria and optional year filters to narrow down results.
+3. Click on a search result to view detailed information on the show page.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## API Reference
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For more details on the API used for this project, refer to the NASA Media Library API documentation: [https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf](https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Additional Notes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- The application focuses on image collections (`media_type=image`).
+- For detailed views, it selects unique images from the collection, prioritizing your preferences for image versions.
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Contributions are welcome! Please open an issue first to discuss what you would like to change.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-# This project is created by Aurelian Mihai
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Acknowledgments
+
+- NASA API for providing access to their media library.
+- Create React App documentation for guidance on setup and deployment.
+
+## Created by
+
+Aurelian Mihai
